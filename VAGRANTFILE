@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box_check_update = true
+
+  config.vm.define "devbox" do |devbox|
+    devbox.vm.box = "centos7"
+    devbox.vm.hostname = "devbox"
+    devbox.vm.network :private_network, ip: "192.168.10.110"
+    devbox.vm.synced_folder "#{ENV['HOME']}/git", "/var/git", type: "virtualbox"
+
+    devbox.ssh.insert_key = true
+    devbox.ssh.forward_agent = true
+
+    devbox.vm.provider "virtualbox" do |vb|
+      vb.name = "devbox"
+      vb.gui = false
+      vb.memory = "2048"
+      vb.cpus = 2
+    end
+
+    devbox.vm.provision "ansible_local" do |ansible|
+      ansible.playbook = "ansible/devbox.yml"
+      ansible.groups = {
+        'devbox' => ['default']
+      }
+    end
+  end
+end

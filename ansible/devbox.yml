@@ -1,0 +1,8 @@
+---
+- name: Build a development box
+  hosts: devbox
+  become: true
+  gather_facts: yes
+  roles:
+    - c-development
+    - ruby-development

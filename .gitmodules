@@ -1,0 +1,6 @@
+[submodule "ansible/roles/c-development"]
+	path = ansible/roles/c-development
+	url = https://github.com/wflgh/ansible-role-c-development.git
+[submodule "ansible/roles/ruby-development"]
+	path = ansible/roles/ruby-development
+	url = https://github.com/wflgh/ansible-role-ruby-development.git
